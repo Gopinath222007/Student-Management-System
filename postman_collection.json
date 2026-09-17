@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "Student Management System API",
+    "description": "CRUD API tests for the Student Management System (Django REST Framework).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "base_url", "value": "http://127.0.0.1:8000/api" }],
+  "item": [
+    {
+      "name": "List Students",
+      "request": { "method": "GET", "url": "{{base_url}}/students/" }
+    },
+    {
+      "name": "Create Student (valid)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/students/",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"Asha\",\n  \"last_name\": \"Kumar\",\n  \"email\": \"asha.kumar@example.com\",\n  \"roll_number\": \"CSE2024001\",\n  \"department\": \"CSE\",\n  \"year\": 2,\n  \"phone\": \"+919876543210\",\n  \"date_of_admission\": \"2024-06-15\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Student (missing required field)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/students/",
+        "body": { "mode": "raw", "raw": "{\n  \"first_name\": \"NoEmail\"\n}" }
+      }
+    },
+    {
+      "name": "Retrieve Student",
+      "request": { "method": "GET", "url": "{{base_url}}/students/1/" }
+    },
+    {
+      "name": "Retrieve Nonexistent Student (404)",
+      "request": { "method": "GET", "url": "{{base_url}}/students/99999/" }
+    },
+    {
+      "name": "Update Student (PATCH)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{base_url}}/students/1/",
+        "body": { "mode": "raw", "raw": "{\n  \"year\": 3\n}" }
+      }
+    },
+    {
+      "name": "Delete Student",
+      "request": { "method": "DELETE", "url": "{{base_url}}/students/1/" }
+    },
+    {
+      "name": "Search Students",
+      "request": { "method": "GET", "url": "{{base_url}}/students/?search=Kumar" }
+    },
+    {
+      "name": "Filter by Department & Year",
+      "request": { "method": "GET", "url": "{{base_url}}/students/?department=CSE&year=2" }
+    }
+  ]
+}
